@@ -1,4 +1,4 @@
-package com.exmaple.template
+package com.example.template
 
 import org.junit.Test
 
