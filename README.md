@@ -1,6 +1,6 @@
 # Android Project Template
-![Build status](https://img.shields.io/github/workflow/status/AdrianKuta/Android-Project-Template/Android%20CI?style=plastic)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/AdrianKuta/Design-Patterns-Kotlin/blob/master/LICENSE)
+[![Build status](https://img.shields.io/github/workflow/status/AdrianKuta/Android-Project-Template/Android%20CI?style=plastic)](https://github.com/AdrianKuta/Android-Project-Template/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=plastic)](https://github.com/AdrianKuta/Design-Patterns-Kotlin/blob/master/LICENSE)
 
 This repository is my foundations for Clean Architecture project.
 With build gradle in Kotlin DSL instead of Groovy.
