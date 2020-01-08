@@ -4,6 +4,7 @@ plugins {
     id(BuildPlugins.androidLibrary)
     id(BuildPlugins.kotlinAndroid)
     id(BuildPlugins.kotlinAndroidExtensions)
+    id(BuildPlugins.kotlinKapt)
 }
 
 android {
@@ -13,19 +14,18 @@ android {
     defaultConfig {
         minSdkVersion(AndroidSdk.min)
         targetSdkVersion(AndroidSdk.target)
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
-
 }
 
 dependencies {
@@ -35,7 +35,23 @@ dependencies {
     implementation(AndroidX.ktxCore)
     implementation(Libraries.timber)
 
-    testImplementation (TestLibraries.junit4)
-    androidTestImplementation (TestLibraries.junitTestExt)
-    androidTestImplementation (TestLibraries.espresso)
+    implementation(AndroidX.room)
+    implementation(AndroidX.roomKtx)
+    kapt(AndroidX.roomKapt)
+
+    implementation(Libraries.moshi)
+    kapt(Libraries.moshiKapt)
+
+    implementation(Libraries.retrofit)
+    implementation(Libraries.retrofitCoroutines)
+    implementation(Libraries.retrofitMoshi)
+
+    implementation(Libraries.okhttp)
+    implementation(Libraries.okhttpInterceptor)
+
+    implementation(Libraries.koin)
+
+    testImplementation(TestLibraries.junit4)
+    androidTestImplementation(TestLibraries.junitTestExt)
+    androidTestImplementation(TestLibraries.espresso)
 }

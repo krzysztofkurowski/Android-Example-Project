@@ -13,19 +13,18 @@ android {
     defaultConfig {
         minSdkVersion(AndroidSdk.min)
         targetSdkVersion(AndroidSdk.target)
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
-
 }
 
 dependencies {
@@ -35,8 +34,11 @@ dependencies {
     implementation(AndroidX.appCompat)
     implementation(AndroidX.ktxCore)
     implementation(Libraries.timber)
+    implementation(Libraries.coroutines)
 
-    testImplementation (TestLibraries.junit4)
-    androidTestImplementation (TestLibraries.junitTestExt)
-    androidTestImplementation (TestLibraries.espresso)
+    implementation(Libraries.koin)
+
+    testImplementation(TestLibraries.junit4)
+    androidTestImplementation(TestLibraries.junitTestExt)
+    androidTestImplementation(TestLibraries.espresso)
 }

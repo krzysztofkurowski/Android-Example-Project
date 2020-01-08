@@ -4,6 +4,8 @@ plugins {
     id(BuildPlugins.androidApplication)
     id(BuildPlugins.kotlinAndroid)
     id(BuildPlugins.kotlinAndroidExtensions)
+    id(BuildPlugins.kotlinKapt)
+    id(BuildPlugins.safeArgsPlugin)
 }
 
 android {
@@ -17,6 +19,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        dataBinding.isEnabled = true
     }
 
     buildTypes {
@@ -32,13 +35,21 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(Libraries.kotlinStdLib)
-    implementation(Libraries.material)
+    implementation(project(":data"))
     implementation(AndroidX.appCompat)
     implementation(AndroidX.ktxCore)
     implementation(AndroidX.constraintLayout)
     implementation(AndroidX.recyclerView)
+    implementation(AndroidX.lifecycleViewmodel)
+
+    implementation(Libraries.kotlinStdLib)
+    implementation(Libraries.material)
     implementation(Libraries.timber)
+    implementation(Libraries.navigationUI)
+    implementation(Libraries.navigationFragment)
+
+    implementation(Libraries.koin)
+    implementation(Libraries.koinViewmodel)
 
     testImplementation(TestLibraries.junit4)
     androidTestImplementation(TestLibraries.junitTestExt)
