@@ -17,7 +17,7 @@ import org.koin.dsl.module
 
 object DataKoinModules {
     val dataModules = module {
-        single { DatabaseClient.getClient(get()) }
+        single { DatabaseClient.getInstance(get()) }
         single { get<MyDatabase>().getUserDao() }
         single { get<MyDatabase>().getPostsDao() }
 
