@@ -35,6 +35,7 @@ dependencies {
     implementation(AndroidX.ktxCore)
     implementation(Libraries.timber)
     implementation(Libraries.coroutines)
+    implementation(Libraries.liveDataKtx)
 
     implementation(Libraries.koin)
 

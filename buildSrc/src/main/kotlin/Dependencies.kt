@@ -44,6 +44,7 @@ object Libraries {
         const val lifecycleViewmodel = "2.2.0-rc03"
         const val room = "2.2.3"
         const val legacy = "1.0.0"
+        const val liveDataKtx = "2.2.0-rc03"
     }
 
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
@@ -71,7 +72,7 @@ object Libraries {
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Libraries.Versions.coroutines}"
     const val glide = "com.github.bumptech.glide:glide:${Libraries.Versions.glide}"
     const val glideKapt = "com.github.bumptech.glide:compiler:${Libraries.Versions.glide}"
-
+    const val liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.liveDataKtx}"
 
     object AndroidX {
         const val appCompat = "androidx.appcompat:appcompat:${Libraries.Versions.appcompat}"
