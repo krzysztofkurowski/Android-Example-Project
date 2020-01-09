@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.example.template.BaseUseCase
 import com.example.template.cache.user.UserCacheRepository
 import com.example.template.model.User
+import com.example.template.remote.Output
 import com.example.template.remote.user.UserRemoteRepository
 import kotlinx.coroutines.Dispatchers
 
@@ -19,7 +20,9 @@ internal class UserUseCaseImpl(
 
     override fun getUsers() = liveData(Dispatchers.IO) {
         emitSource(cache.getAllUsers())
-        val users = remote.getUsers()
-        cache.saveUsers(users)
+
+        val userOutput = remote.getUsers()
+        if(userOutput is Output.Success)
+            cache.saveUsers(userOutput.data)
     }
 }

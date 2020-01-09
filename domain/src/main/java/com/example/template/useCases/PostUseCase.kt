@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.example.template.BaseUseCase
 import com.example.template.cache.post.PostCacheRepository
 import com.example.template.model.Post
+import com.example.template.remote.Output
 import com.example.template.remote.user.UserRemoteRepository
 import kotlinx.coroutines.Dispatchers
 
@@ -19,7 +20,9 @@ internal class PostUseCaseImpl(
 
     override fun getPosts(userId: Int) = liveData(Dispatchers.IO) {
         emitSource(cache.getAllPosts(userId))
-        val posts = remote.getPosts(userId)
-        cache.savePosts(posts)
+
+        val postOutput = remote.getPosts(userId)
+        if (postOutput is Output.Success)
+            cache.savePosts(postOutput.data)
     }
 }
