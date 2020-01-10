@@ -15,9 +15,9 @@ import com.example.template.remote.user.UserServiceImpl
 import okhttp3.Interceptor
 import org.koin.dsl.module
 
-object DataKoinModules {
+internal object DataKoinModules {
 
-    val dataModules = arrayOf(
+    val dataModules = listOf(
         remoteModules(),
         cacheModules(),
         repoModules()

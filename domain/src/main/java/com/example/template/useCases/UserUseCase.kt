@@ -2,7 +2,6 @@ package com.example.template.useCases
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.example.template.BaseUseCase
 import com.example.template.cache.user.UserCacheRepository
 import com.example.template.model.User
 import com.example.template.remote.Output
