@@ -14,10 +14,11 @@ class MyApp : Application() {
 
         startKoin {
             androidContext(this@MyApp)
+            //TODO add separation between modules for di
             modules(
                 listOf(
                     PresentationKoinModules.presentationModule,
-                    DataKoinModules.dataModules,
+                    *DataKoinModules.dataModules,
                     DomainKoinModules.domainModules
                 )
             )

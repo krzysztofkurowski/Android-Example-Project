@@ -16,18 +16,28 @@ import okhttp3.Interceptor
 import org.koin.dsl.module
 
 object DataKoinModules {
-    val dataModules = module {
-        single { DatabaseClient.getInstance(get()) }
-        single { get<MyDatabase>().getUserDao() }
-        single { get<MyDatabase>().getPostsDao() }
 
+    val dataModules = arrayOf(
+        remoteModules(),
+        cacheModules(),
+        repoModules()
+    )
+
+    private fun remoteModules() = module {
         single<Interceptor> { OkHttp.getLogsInterceptor() }
         single { OkHttp.getClient(get()) }
         single { ApiUtils.getUserInterface(get()) }
         single<UserService> { UserServiceImpl(get()) }
+    }
 
+    private fun cacheModules() = module {
+        single { DatabaseClient.getInstance(get()) }
+        single { get<MyDatabase>().getUserDao() }
+        single { get<MyDatabase>().getPostsDao() }
+    }
+
+    private fun repoModules() = module {
         single<UserRemoteRepository> { UserRemoteRepositoryImpl(get()) }
-
         single<UserCacheRepository> { UserCacheRepositoryImpl(get()) }
         single<PostCacheRepository> { PostCacheRepositoryImpl(get()) }
     }

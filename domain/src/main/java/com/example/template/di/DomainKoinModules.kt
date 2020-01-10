@@ -9,6 +9,6 @@ import org.koin.dsl.module
 object DomainKoinModules {
     val domainModules = module {
         single<UserUseCase> { UserUseCaseImpl(get(), get()) }
-        single<PostUseCase> { PostUseCaseImpl(get(), get())}
+        single<PostUseCase> { PostUseCaseImpl(get(), get()) }
     }
 }
