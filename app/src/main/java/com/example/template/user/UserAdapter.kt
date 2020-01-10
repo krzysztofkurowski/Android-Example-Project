@@ -1,4 +1,4 @@
-package com.example.template.useCases
+package com.example.template.user
 
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR

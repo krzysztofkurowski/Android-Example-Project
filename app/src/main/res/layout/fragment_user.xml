@@ -7,7 +7,7 @@
 
         <variable
             name="ViewModel"
-            type="com.example.template.useCases.UserViewModel" />
+            type="com.example.template.user.UserViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,4 +1,4 @@
-package com.example.template.useCases
+package com.example.template.user
 
 import android.os.Bundle
 import android.view.View

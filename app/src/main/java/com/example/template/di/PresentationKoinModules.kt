@@ -1,7 +1,7 @@
 package com.example.template.di
 
 import com.example.template.posts.PostViewModel
-import com.example.template.useCases.UserViewModel
+import com.example.template.user.UserViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

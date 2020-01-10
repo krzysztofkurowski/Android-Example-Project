@@ -1,6 +1,7 @@
-package com.example.template.useCases
+package com.example.template.user
 
 import com.example.template.tools.base.BaseViewModel
+import com.example.template.useCases.UserUseCase
 
 class UserViewModel(
     userRepository: UserUseCase
