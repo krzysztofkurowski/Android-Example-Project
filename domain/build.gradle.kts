@@ -18,11 +18,7 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            isMinifyEnabled = true
         }
     }
 }
@@ -34,7 +30,6 @@ dependencies {
     implementation(AndroidX.appCompat)
     implementation(AndroidX.ktxCore)
     implementation(Libraries.timber)
-    implementation(Libraries.coroutines)
     implementation(Libraries.liveDataKtx)
 
     implementation(Libraries.koin)

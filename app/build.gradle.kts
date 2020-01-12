@@ -1,4 +1,6 @@
 import Libraries.AndroidX
+import java.io.FileInputStream
+import java.util.*
 
 plugins {
     id(BuildPlugins.androidApplication)
@@ -22,9 +24,34 @@ android {
         dataBinding.isEnabled = true
     }
 
+    signingConfigs {
+        val keystorePropertiesFile = rootProject.file("cert/keystore.properties")
+        val keystoreProperties = Properties()
+        keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"].toString()
+            keyPassword = keystoreProperties["keyPassword"].toString()
+            storeFile = file(keystoreProperties["storeFile"].toString())
+            storePassword = keystoreProperties["storePassword"].toString()
+        }
+
+        getByName("debug") {
+            storeFile = rootProject.file("cert/debug-key.jks")
+            storePassword = "test123"
+            keyAlias = "test123"
+            keyPassword = "test123"
+        }
+    }
+
     buildTypes {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
