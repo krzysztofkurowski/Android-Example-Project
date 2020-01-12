@@ -16,6 +16,16 @@ android {
         targetSdkVersion(AndroidSdk.target)
         consumerProguardFiles("consumer-rules.pro")
     }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "consumer-rules.pro"
+            )
+        }
+    }
 }
 
 dependencies {
