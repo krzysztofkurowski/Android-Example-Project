@@ -24,6 +24,14 @@ android {
         dataBinding.isEnabled = true
     }
 
+    sourceSets {
+        getByName("main").res.srcDirs(
+            "src/main/res",
+            "src/main/res/layouts/user",
+            "src/main/res/layouts/post"
+        )
+    }
+
     signingConfigs {
         val keystorePropertiesFile = rootProject.file("app/cert/keystore.properties")
         val keystoreProperties = Properties()
