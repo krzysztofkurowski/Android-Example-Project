@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseBindableFragment<T: ViewDataBinding>: Fragment() {
+abstract class BaseBindableFragment<T : ViewDataBinding> : Fragment() {
 
     private lateinit var mBinding: T
 
@@ -22,6 +23,7 @@ abstract class BaseBindableFragment<T: ViewDataBinding>: Fragment() {
         return mBinding.root
     }
 
+    @LayoutRes
     abstract fun getLayout(): Int
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
