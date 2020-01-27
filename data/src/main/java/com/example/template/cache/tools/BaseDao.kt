@@ -1,10 +1,7 @@
 package com.example.template.cache.tools
 
 import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Transaction
-import androidx.room.Update
+import androidx.room.*
 import com.example.template.cache.tools.diffUtil.DiffCallback
 import com.example.template.cache.tools.diffUtil.EntityDiffUtil
 
@@ -16,10 +13,10 @@ internal abstract class BaseDao<T> {
 
     abstract suspend fun clearTable()
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insert(item: T)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insert(items: List<T>)
 
     @Update
