@@ -24,8 +24,16 @@ android {
         dataBinding.isEnabled = true
     }
 
+    sourceSets {
+        getByName("main").res.srcDirs(
+            "src/main/res",
+            "src/main/res/layouts/user",
+            "src/main/res/layouts/post"
+        )
+    }
+
     signingConfigs {
-        val keystorePropertiesFile = rootProject.file("cert/keystore.properties")
+        val keystorePropertiesFile = rootProject.file("app/cert/keystore.properties")
         val keystoreProperties = Properties()
         keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
@@ -37,7 +45,7 @@ android {
         }
 
         getByName("debug") {
-            storeFile = rootProject.file("cert/debug-key.jks")
+            storeFile = rootProject.file("app/cert/debug-key.jks")
             storePassword = "test123"
             keyAlias = "test123"
             keyPassword = "test123"
