@@ -1,4 +1,5 @@
 import Libraries.AndroidX
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.FileInputStream
 import java.util.*
 
@@ -22,6 +23,12 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         dataBinding.isEnabled = true
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
     }
 
     signingConfigs {
@@ -68,15 +75,21 @@ dependencies {
     implementation(AndroidX.constraintLayout)
     implementation(AndroidX.recyclerView)
     implementation(AndroidX.lifecycleViewmodel)
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
     implementation(Libraries.kotlinStdLib)
     implementation(Libraries.material)
     implementation(Libraries.timber)
     implementation(Libraries.navigationUI)
     implementation(Libraries.navigationFragment)
+    implementation("androidx.fragment:fragment-ktx:1.2.0")
+    implementation("androidx.preference:preference-ktx:1.1.0")
 
-    implementation(Libraries.koin)
-    implementation(Libraries.koinViewmodel)
+    implementation("com.google.dagger:dagger:2.25.2")
+    implementation("com.google.dagger:dagger-android-support:2.25.2")
+
+    kapt("com.google.dagger:dagger-compiler:2.25.2")
+    kapt("com.google.dagger:dagger-android-processor:2.25.2")
 
     testImplementation(TestLibraries.junit4)
     androidTestImplementation(TestLibraries.junitTestExt)

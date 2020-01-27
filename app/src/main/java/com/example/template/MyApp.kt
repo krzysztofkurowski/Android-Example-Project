@@ -1,22 +1,16 @@
 package com.example.template
 
-import android.app.Application
-import com.example.template.di.PresentationKoinModules
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import com.example.template.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 
-class MyApp : Application() {
+class MyApp : DaggerApplication() {
+
+    override fun applicationInjector(): AndroidInjector<out MyApp> =
+        DaggerAppComponent.factory().create(this)
 
     override fun onCreate() {
         super.onCreate()
-
         DomainComponent.init(this)
-
-        startKoin {
-            androidContext(this@MyApp)
-            modules(
-                PresentationKoinModules.presentationModule
-            )
-        }
     }
 }
