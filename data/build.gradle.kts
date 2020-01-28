@@ -45,6 +45,12 @@ dependencies {
     implementation(Libraries.retrofit)
     implementation(Libraries.retrofitCoroutines)
     implementation(Libraries.retrofitMoshi)
+    implementation("io.reactivex.rxjava2:rxjava:2.2.9")
+    implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
+    implementation("io.reactivex.rxjava2:rxkotlin:2.1.0")
+    implementation("android.arch.persistence.room:rxjava2:1.1.1")
+    implementation("androidx.room:room-rxjava2:2.2.3")
+    implementation("com.squareup.retrofit2:adapter-rxjava:2.3.0")
 
     implementation(Libraries.okhttp)
     implementation(Libraries.okhttpInterceptor)

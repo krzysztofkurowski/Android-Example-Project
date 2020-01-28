@@ -1,27 +1,28 @@
 package com.example.template.cache.user
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.example.template.cache.model.toUsers
 import com.example.template.cache.tools.diffUtil.BaseDiffCallback
 import com.example.template.model.User
 import com.example.template.model.toUserEntities
+import io.reactivex.Completable
+import io.reactivex.Flowable
 
 interface UserCacheRepository {
-    fun getAllUsers(): LiveData<List<User>>
-    suspend fun saveUsers(users: List<User>)
+    fun getAllUsers(): Flowable<List<User>>
+    fun saveUsers(users: List<User>): Completable
 }
 
 internal class UserCacheRepositoryImpl(private val userDao: UserDao) : UserCacheRepository {
-    override fun getAllUsers(): LiveData<List<User>> =
-        Transformations.map(userDao.getAllLiveItems()) { it.toUsers() }
+    override fun getAllUsers(): Flowable<List<User>> =
+        userDao.getAllLiveItems().map { it.toUsers() }
 
-    override suspend fun saveUsers(users: List<User>) {
-        userDao.makeDiff(
-            BaseDiffCallback(
-                oldList = userDao.getALlItems(),
-                newList = users.toUserEntities()
+    override fun saveUsers(users: List<User>): Completable =
+        Completable.fromAction {
+            userDao.makeDiff(
+                BaseDiffCallback(
+                    oldList = userDao.getALlItems(),
+                    newList = users.toUserEntities()
+                )
             )
-        )
-    }
+        }
 }

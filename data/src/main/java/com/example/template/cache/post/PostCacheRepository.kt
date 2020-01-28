@@ -1,21 +1,21 @@
 package com.example.template.cache.post
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.example.template.cache.model.toPosts
 import com.example.template.model.Post
 import com.example.template.model.toEntities
+import io.reactivex.Completable
+import io.reactivex.Flowable
 
 interface PostCacheRepository {
-    fun getAllPosts(userId: Int): LiveData<List<Post>>
-    suspend fun savePosts(posts: List<Post>)
+    fun getAllPosts(userId: Int): Flowable<List<Post>>
+    fun savePosts(posts: List<Post>): Completable
 }
 
 internal class PostCacheRepositoryImpl(private val postDao: PostDao) : PostCacheRepository {
-    override fun getAllPosts(userId: Int): LiveData<List<Post>> =
-        Transformations.map(postDao.getPosts(userId)) { it.toPosts() }
+    override fun getAllPosts(userId: Int): Flowable<List<Post>> =
+        postDao.getPosts(userId).map { it.toPosts() }
 
-    override suspend fun savePosts(posts: List<Post>) {
+
+    override fun savePosts(posts: List<Post>): Completable =
         postDao.insert(posts.toEntities())
-    }
 }

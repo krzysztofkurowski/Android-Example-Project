@@ -1,10 +1,10 @@
 package com.example.template.cache.user
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
-import com.example.template.cache.tools.BaseDao
 import com.example.template.cache.model.UserEntity
+import com.example.template.cache.tools.BaseDao
+import io.reactivex.Flowable
 
 @Dao
 internal abstract class UserDao : BaseDao<UserEntity>() {
@@ -15,11 +15,11 @@ internal abstract class UserDao : BaseDao<UserEntity>() {
     }
 
     @Query(GET_USERS)
-    abstract override fun getAllLiveItems(): LiveData<List<UserEntity>>
+    abstract override fun getAllLiveItems(): Flowable<List<UserEntity>>
 
     @Query(GET_USERS)
     abstract override fun getALlItems(): List<UserEntity>
 
     @Query(CLEAR_TABLE)
-    abstract override suspend fun clearTable()
+    abstract override fun clearTable()
 }

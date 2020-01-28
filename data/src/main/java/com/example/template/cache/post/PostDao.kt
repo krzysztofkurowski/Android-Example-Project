@@ -1,10 +1,10 @@
 package com.example.template.cache.post
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.example.template.cache.model.PostEntity
 import com.example.template.cache.tools.BaseDao
+import io.reactivex.Flowable
 
 @Dao
 internal abstract class PostDao : BaseDao<PostEntity>() {
@@ -16,14 +16,14 @@ internal abstract class PostDao : BaseDao<PostEntity>() {
     }
 
     @Query(GET_POSTS)
-    abstract override fun getAllLiveItems(): LiveData<List<PostEntity>>
+    abstract override fun getAllLiveItems(): Flowable<List<PostEntity>>
 
     @Query(GET_POSTS)
     abstract override fun getALlItems(): List<PostEntity>
 
     @Query(GET_USER_POSTS)
-    abstract fun getPosts(userId: Int): LiveData<List<PostEntity>>
+    abstract fun getPosts(userId: Int): Flowable<List<PostEntity>>
 
     @Query(CLEAR_TABLE)
-    abstract override suspend fun clearTable()
+    abstract override fun clearTable()
 }

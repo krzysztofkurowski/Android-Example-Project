@@ -4,34 +4,37 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.template.cache.tools.diffUtil.DiffCallback
 import com.example.template.cache.tools.diffUtil.EntityDiffUtil
+import io.reactivex.Completable
+import io.reactivex.Flowable
+import io.reactivex.Single
 
 internal abstract class BaseDao<T> {
 
-    abstract fun getAllLiveItems(): LiveData<List<T>>
+    abstract fun getAllLiveItems(): Flowable<List<T>>
 
     abstract fun getALlItems(): List<T>
 
-    abstract suspend fun clearTable()
+    abstract fun clearTable()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insert(item: T)
+    abstract fun insert(item: T): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insert(items: List<T>)
+    abstract fun insert(items: List<T>): Completable
 
     @Update
-    abstract suspend fun update(item: T)
+    abstract fun update(item: T): Completable
 
     @Update
-    abstract suspend fun update(items: List<T>)
+    abstract fun update(items: List<T>): Completable
 
     @Delete
-    abstract suspend fun delete(item: T)
+    abstract fun delete(item: T): Completable
 
     @Delete
-    abstract suspend fun delete(items: List<T>)
+    abstract fun delete(items: List<T>): Completable
 
     @Transaction
-    open suspend fun makeDiff(diffCallback: DiffCallback<T>) =
+    open fun makeDiff(diffCallback: DiffCallback<T>) =
         EntityDiffUtil(diffCallback).dispatchDiffUpdate(this)
 }

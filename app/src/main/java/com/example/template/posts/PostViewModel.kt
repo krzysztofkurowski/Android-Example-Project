@@ -1,10 +1,41 @@
 package com.example.template.posts
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.template.model.Post
 import com.example.template.tools.base.BaseViewModel
 import com.example.template.useCases.PostUseCase
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
-class PostViewModel(userId: Int, postUseCase: PostUseCase) :
+class PostViewModel(private val userId: Int, private val postUseCase: PostUseCase) :
     BaseViewModel() {
 
-    val items = postUseCase.getPosts(userId)
+    val items = MutableLiveData<List<Post>>()
+
+    fun getItems(): LiveData<List<Post>> = items
+
+    init {
+        getPosts(userId)
+        refreshPosts()
+    }
+
+    private fun refreshPosts() {
+        viewModelScope.launch {
+            postUseCase.refreshPosts(userId)
+        }
+    }
+
+    private fun getPosts(userId: Int) {
+        postUseCase
+            .getPosts(userId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribeBy {
+                items.postValue(it)
+            }
+    }
 }

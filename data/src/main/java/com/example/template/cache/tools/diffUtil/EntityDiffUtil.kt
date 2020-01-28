@@ -4,7 +4,7 @@ import com.example.template.cache.tools.BaseDao
 
 internal class EntityDiffUtil<T>(private val diffCallback: DiffCallback<T>) {
 
-    suspend fun dispatchDiffUpdate(dao: BaseDao<T>) {
+    fun dispatchDiffUpdate(dao: BaseDao<T>) {
 
         val newEntryList = diffCallback.getNewItemList()
         val oldEntryList = diffCallback.getOldItemList()
