@@ -6,13 +6,15 @@ import com.example.template.remote.Output
 import com.example.template.remote.user.UserRemoteRepository
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 interface UserUseCase {
     fun getUsers(): Flowable<List<User>>
-    suspend fun refreshUser()
+    fun refreshUser(): Disposable
+    fun onCleared()
 }
 
 internal class UserUseCaseImpl(
@@ -22,14 +24,21 @@ internal class UserUseCaseImpl(
 
     override fun getUsers() = cache.getAllUsers()
 
-    override suspend fun refreshUser() {
-        withContext(Dispatchers.IO) {
-            val userOutput = remote.getUsers()
-            if (userOutput is Output.Success)
-                cache.saveUsers(userOutput.data)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe()
-        }
-    }
+    override fun refreshUser() =
+        remote
+            .getUsers()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribeBy {
+                if (it is Output.Success)
+                    saveUsers(it.data)
+            }.addTo(disposable)
+
+    private fun saveUsers(users: List<User>) =
+        cache
+            .saveUsers(users)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+            .addTo(disposable)
 }

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.example.template.cache.model.UserEntity
 import com.example.template.cache.tools.BaseDao
+import io.reactivex.Completable
 import io.reactivex.Flowable
 
 @Dao
@@ -21,5 +22,5 @@ internal abstract class UserDao : BaseDao<UserEntity>() {
     abstract override fun getALlItems(): List<UserEntity>
 
     @Query(CLEAR_TABLE)
-    abstract override fun clearTable()
+    abstract override fun clearTable(): Completable
 }

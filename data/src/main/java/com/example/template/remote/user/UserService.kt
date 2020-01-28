@@ -2,24 +2,25 @@ package com.example.template.remote.user
 
 import com.example.template.remote.model.PostDto
 import com.example.template.remote.model.UserDto
+import io.reactivex.Observable
 import retrofit2.Response
 
 internal interface UserService {
-    suspend fun getPosts(userId: Int): Response<List<PostDto>>
-    suspend fun getUsers(): Response<List<UserDto>>
+    fun getPosts(userId: Int): Observable<Response<List<PostDto>>>
+    fun getUsers(): Observable<Response<List<UserDto>>>
 }
 
 internal class UserServiceImpl(private val userInterface: UserInterface) :
     UserService {
-    override suspend fun getPosts(userId: Int) = userInterface.getPosts(userId)
-    override suspend fun getUsers() = userInterface.getUsers()
+    override fun getPosts(userId: Int) = userInterface.getPosts(userId)
+    override fun getUsers() = userInterface.getUsers()
 }
 
 internal class UserMockServiceImpl() : UserService {
 
-    override suspend fun getPosts(userId: Int): Response<List<PostDto>> =
-        Response.success(listOf(PostDto("body", 0, "title", 0)))
+    override fun getPosts(userId: Int): Observable<Response<List<PostDto>>> =
+        Observable.fromArray(Response.success(listOf(PostDto("body", 0, "title", 0))))
 
-    override suspend fun getUsers(): Response<List<UserDto>> =
-        Response.success(emptyList())
+    override fun getUsers(): Observable<Response<List<UserDto>>> =
+        Observable.fromArray(Response.success(emptyList()))
 }

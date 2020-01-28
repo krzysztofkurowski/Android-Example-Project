@@ -17,8 +17,8 @@ internal class EntityDiffUtil<T>(private val diffCallback: DiffCallback<T>) {
             commonEntries.any { diffCallback.areItemsTheSame(oldEntry, it) }
         }
 
-        dao.delete(removedEntries)
-        dao.update(commonEntries)
-        dao.insert(newEntries)
+        dao.deleteSync(removedEntries)
+        dao.updateSync(commonEntries)
+        dao.insertSync(newEntries)
     }
 }

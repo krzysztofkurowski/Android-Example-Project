@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.example.template.cache.model.PostEntity
 import com.example.template.cache.tools.BaseDao
+import io.reactivex.Completable
 import io.reactivex.Flowable
 
 @Dao
@@ -25,5 +26,5 @@ internal abstract class PostDao : BaseDao<PostEntity>() {
     abstract fun getPosts(userId: Int): Flowable<List<PostEntity>>
 
     @Query(CLEAR_TABLE)
-    abstract override fun clearTable()
+    abstract override fun clearTable(): Completable
 }

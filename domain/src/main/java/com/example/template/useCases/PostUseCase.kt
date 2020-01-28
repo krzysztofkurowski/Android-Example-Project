@@ -6,13 +6,14 @@ import com.example.template.remote.Output
 import com.example.template.remote.user.UserRemoteRepository
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 interface PostUseCase {
     fun getPosts(userId: Int): Flowable<List<Post>>
-    suspend fun refreshPosts(userId: Int)
+    fun refreshPosts(userId: Int)
+    fun onCleared()
 }
 
 internal class PostUseCaseImpl(
@@ -22,14 +23,22 @@ internal class PostUseCaseImpl(
 
     override fun getPosts(userId: Int): Flowable<List<Post>> = cache.getAllPosts(userId)
 
-    override suspend fun refreshPosts(userId: Int) {
-        withContext(Dispatchers.IO) {
-            val postOutput = remote.getPosts(userId)
-            if (postOutput is Output.Success)
-                cache.savePosts(postOutput.data)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe()
-        }
+    override fun refreshPosts(userId: Int) {
+        remote
+            .getPosts(userId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribeBy {
+                if (it is Output.Success)
+                    savePosts(it.data)
+            }.addTo(disposable)
     }
+
+    private fun savePosts(posts: List<Post>) =
+        cache
+            .savePosts(posts)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+            .addTo(disposable)
 }

@@ -1,12 +1,10 @@
 package com.example.template.cache.tools
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.template.cache.tools.diffUtil.DiffCallback
 import com.example.template.cache.tools.diffUtil.EntityDiffUtil
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Single
 
 internal abstract class BaseDao<T> {
 
@@ -14,7 +12,7 @@ internal abstract class BaseDao<T> {
 
     abstract fun getALlItems(): List<T>
 
-    abstract fun clearTable()
+    abstract fun clearTable(): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(item: T): Completable
@@ -33,6 +31,24 @@ internal abstract class BaseDao<T> {
 
     @Delete
     abstract fun delete(items: List<T>): Completable
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertSync(item: T)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertSync(items: List<T>)
+
+    @Update
+    abstract fun updateSync(item: T)
+
+    @Update
+    abstract fun updateSync(items: List<T>)
+
+    @Delete
+    abstract fun deleteSync(item: T)
+
+    @Delete
+    abstract fun deleteSync(items: List<T>)
 
     @Transaction
     open fun makeDiff(diffCallback: DiffCallback<T>) =
