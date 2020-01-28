@@ -6,7 +6,7 @@ object DataComponent {
 
     private lateinit var application: Application
 
-    fun init(application: Application){
+    fun init(application: Application) {
         this.application = application
     }
 

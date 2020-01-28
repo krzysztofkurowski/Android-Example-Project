@@ -3,10 +3,10 @@ package com.example.template.cache
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.template.cache.user.UserDao
 import com.example.template.cache.model.PostEntity
 import com.example.template.cache.model.UserEntity
 import com.example.template.cache.post.PostDao
+import com.example.template.cache.user.UserDao
 
 @Database(
     entities = [UserEntity::class, PostEntity::class],

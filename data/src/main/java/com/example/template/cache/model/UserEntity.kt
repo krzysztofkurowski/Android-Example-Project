@@ -21,7 +21,7 @@ internal data class UserEntity(
     val phone: String,
     val username: String,
     val website: String
-): BaseEntityItem {
+) : BaseEntityItem {
     companion object {
         const val TABLE_NAME = "table_user"
         const val COLUMN_ID = "user_id"

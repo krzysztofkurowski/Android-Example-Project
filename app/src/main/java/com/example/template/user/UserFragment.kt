@@ -6,9 +6,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.template.R
-import com.example.template.tools.ViewModelFactory
 import com.example.template.databinding.FragmentUserBinding
 import com.example.template.model.User
+import com.example.template.tools.ViewModelFactory
 import com.example.template.tools.base.BaseBindableFragment
 import com.example.template.tools.base.ItemClickListener
 import com.example.template.tools.extensions.addDefaultConfiguration

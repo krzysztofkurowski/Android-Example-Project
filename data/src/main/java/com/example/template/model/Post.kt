@@ -8,7 +8,7 @@ data class Post(
     val body: String,
     val title: String,
     val userId: Int
-): BaseItem
+) : BaseItem
 
 internal fun Post.toEntity() = PostEntity(
     id.toLong(),
