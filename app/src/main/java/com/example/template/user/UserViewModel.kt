@@ -8,9 +8,10 @@ import com.example.template.useCases.UserUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class UserViewModel(
-    private val userRepository: UserUseCase
+class UserViewModel @Inject constructor(
+private val userRepository: UserUseCase
 ) : BaseViewModel() {
 
     val items = MutableLiveData<List<User>>()
