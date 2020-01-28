@@ -11,7 +11,10 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class PostViewModel @Inject constructor(private val userId: Int, private val postUseCase: PostUseCase) :
+class PostViewModel @Inject constructor(
+    userId: Int,
+    private val postUseCase: PostUseCase
+) :
     BaseViewModel() {
 
     val items = MutableLiveData<List<Post>>()

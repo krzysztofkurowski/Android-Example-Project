@@ -90,6 +90,7 @@ dependencies {
     implementation(Libraries.timber)
     implementation(Libraries.navigationUI)
     implementation(Libraries.navigationFragment)
+    implementation(Libraries.koin)
     implementation("androidx.fragment:fragment-ktx:1.2.0")
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("io.reactivex.rxjava2:rxjava:2.2.9")

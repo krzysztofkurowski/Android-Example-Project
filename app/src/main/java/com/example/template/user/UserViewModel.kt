@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class UserViewModel @Inject constructor(
-private val userRepository: UserUseCase
+    private val userRepository: UserUseCase
 ) : BaseViewModel() {
 
     val items = MutableLiveData<List<User>>()
